@@ -23,9 +23,9 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
 
 ##  Tools & Strategy
 *   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
-*   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days`, `Delivery_Status` (On-Time vs. Late), and `Macro_Category_Groups`.
+*   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days`, `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
-*   **Visualization:** Designed a professional "App-Style" Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
+*   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
 
 ##  Key Findings
 
