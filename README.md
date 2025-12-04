@@ -30,7 +30,7 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
 ##  Key Findings
 
 ### 1. Revenue Concentration
-The business relies heavily on a few core segments. The top three macro-categories—**Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table**—generated approximately **26%** of the grand total revenue during the analyzed timeline. This indicates a strong market fit in these specific niches but exposes the business to risk if these specific categories underperform.
+The business relies heavily on a few core segments. The top three macro-categories (**Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table**) generated approximately **26%** of the grand total revenue during the analyzed timeline. This indicates a strong market fit in these specific niches but exposes the business to risk if these specific categories underperform.
 
 ### 2. The "Logistics Gap"
 Analysis reveals a sharp contrast in customer satisfaction based on delivery performance. 
@@ -44,7 +44,7 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
 ##  Strategic Recommendations
 
 1.  **Optimize "Last Mile" Logistics:** Investigate carrier performance in states with the highest "Late Delivery" rates. Reducing late deliveries by just 50% could potentially increase the overall Average Review Score, driving higher customer trust and repeat purchases.
-2.  **Targeted Inventory Focus:** Prioritize stock availability and supplier relationships specifically for **Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table** to prevent stockouts in these revenue-critical segments.
+2.  **Targeted Inventory Focus:** Prioritize stock availability and supplier relationships specifically for **Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table** to prevent stockouts in these critical segments.
 3.  **Seasonal Retention Strategy:** Launch a dedicated "Post-May" investigation task force. If there were no results, counter it with mid-year promotions or loyalty incentives.
 
 ---
