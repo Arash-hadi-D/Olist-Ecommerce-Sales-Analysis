@@ -22,6 +22,13 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
 
 
 ##  Tools & Strategy
+
+### Why Excel?
+While Python or SQL are standard for large datasets, this project was **deliberately built in Excel** to demonstrate:
+1.  **Stakeholder Accessibility:** Creating a "low-code" tool that business executives can interact with immediately, without needing a Python environment or SQL access.
+2.  **Advanced Data Modeling:** showcasing the use of **Power Query** and **Data Models** to handle 100k+ rows efficiently, bypassing standard spreadsheet limitations.
+
+### Workflow
 *   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
 *   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days`, `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
