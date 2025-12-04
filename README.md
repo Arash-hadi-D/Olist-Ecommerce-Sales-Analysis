@@ -9,13 +9,6 @@ This project analyzes **100k+ anonymized orders** from Olist, a Brazilian e-comm
 Using **Microsoft Excel**, I transformed raw relational data into an interactive dashboard. The analysis focuses on the "Mature Operations" phase (Jan 2017 – Aug 2018), filtering out early pilot data and incomplete collection periods to ensure statistical accuracy.
 
 **Key Achievement:** Identified a critical "Logistics Gap" where a 20-day delay in delivery correlates with a 1.6-star drop in customer satisfaction.
-## **Datasets**
-
-* `brazilian_ecommerce_public_dataset` - Real anonymized order data from Olist Store (Kaggle)
-
-  * Tables: 9 (Relational CSVs including Orders, Customers, Reviews, Products)
-
-  * Rows: 99,441 Orders (before filtering)
 
 
 ##  About the Dataset
