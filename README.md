@@ -41,11 +41,13 @@ Analysis reveals a sharp contrast in customer satisfaction based on delivery per
 ### 3. Monthly Revenue Trend
 The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a distinct peak in November, likely driven by Black Friday promotions. However, there is a notable seasonal pattern showing a sales decline of **almost 14% from May to June** in both 2017 and 2018, which requires further root cause analysis to mitigate future Q2 slumps.
 
-##  Strategic Recommendations
+##  Recommendations
 
-1.  **Optimize "Last Mile" Logistics:** Investigate carrier performance in states with the highest "Late Delivery" rates. Reducing late deliveries by just 50% could potentially increase the overall Average Review Score, driving higher customer trust and repeat purchases.
-2.  **Targeted Inventory Focus:** Prioritize stock availability and supplier relationships specifically for **Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table** to prevent stockouts in these critical segments.
-3.  **Seasonal Retention Strategy:** Launch a dedicated "Post-May" investigation task force. If there were no results, counter it with mid-year promotions or loyalty incentives.
+1.  **Optimize "Last Mile" Logistics:** Olist should Investigate carrier performance in states with the highest "Late Delivery" rates and or develop a predictive SLA breach algorithm. Reducing late deliveries by just 50% could potentially increase the overall Average Review Score, driving higher customer trust and repeat purchases.
+
+2.  **Targeted Inventory Focus:** Prioritizing stock availability and supplier relationships specifically for **Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table** to prevent stockouts in these critical segments.
+
+3.  **Seasonal Retention Strategy:** Launching a dedicated "Post-May" investigation task force. If no concrete result was found, counter it with mid-year promotions or loyalty incentives.
 
 ---
 ###  Project Structure
