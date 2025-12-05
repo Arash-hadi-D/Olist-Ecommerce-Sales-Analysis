@@ -57,7 +57,7 @@ Analysis reveals a sharp contrast in customer satisfaction based on delivery per
 *   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 30.9 days).
 *   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.30**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
 
-![Review Score Comparison](delivery_gap_insight.JPG) 
+![Review Score Comparison](delivery_gap_insight.png) 
 
 *Figure 2: Late deliveries correlate with a massive 1.66-star drop in satisfaction.*
 
