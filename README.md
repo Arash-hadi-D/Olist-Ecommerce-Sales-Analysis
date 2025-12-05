@@ -47,10 +47,11 @@ While Python or SQL are standard for large datasets, this project was **delibera
 The business relies heavily on a few core segments. The top three macro-categories (**Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table**) generated approximately **26%** of the grand total revenue during the analyzed timeline. This indicates a strong market fit in these specific niches but exposes the business to risk if these specific categories underperform.
 
 ### 2. The "Logistics Gap"
-Analysis reveals a sharp contrast in customer satisfaction based on delivery performance. 
+Analysis reveals a sharp contrast in customer satisfaction based on delivery performance.
 *   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.4 days).
-*   **Delayed deliveries:** Average Review Score plummets to **2.55/5** (Avg delivery time: 30.9 days).
-*   **Impact:** This confirms a strong negative correlation: a ~20-day increase in delivery time effectively costs the business 1.6 stars in customer satisfaction.
+*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 30.9 days).
+*   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.30**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
+
 
 ### 3. Monthly Revenue Trend
 The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a distinct peak in November, likely driven by Black Friday promotions. However, there is a notable seasonal pattern showing a sales decline of **almost 14% from May to June** in both 2017 and 2018, which requires further root cause analysis to mitigate future Q2 slumps.
@@ -63,9 +64,18 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
 
 3.  **Seasonal Retention Strategy:** Launching a dedicated "Post-May" investigation task force. If no concrete result was found, counter it with mid-year promotions or loyalty incentives.
 
+
+##  Skills Showcased
+The technical skills and concepts applied in this project include:
+*   **Data Cleaning & ETL:** Power Query (M Language), Data Type Standardization, Merging Queries.
+*   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
+*   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
+*   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
+
 ---
-###  Project Structure
+###  Project Files
 *   **[Download Project File (Excel)](https://docs.google.com/spreadsheets/d/10fxGrWl1Hgm6WK1cin0v4wGfU9LSxsBL/edit?usp=sharing&ouid=116764094025151136870&rtpof=true&sd=true)**: The complete Excel model (Hosted on Google Drive due to GitHub size limits).
+*   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.m` for technical review.
 *   `dashboard_overview.jpg`: preview of the final output.
 
 
