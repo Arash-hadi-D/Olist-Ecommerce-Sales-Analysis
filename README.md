@@ -48,7 +48,7 @@ The business relies heavily on a few core segments. The top three macro-categori
 
 ### 2. The "Logistics Gap"
 Analysis reveals a sharp contrast in customer satisfaction based on delivery performance. 
-*   **On-time deliveries:** Average Review Score of **4.16/5** (Avg delivery time: 10.4 days).
+*   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.4 days).
 *   **Delayed deliveries:** Average Review Score plummets to **2.55/5** (Avg delivery time: 30.9 days).
 *   **Impact:** This confirms a strong negative correlation: a ~20-day increase in delivery time effectively costs the business 1.6 stars in customer satisfaction.
 
