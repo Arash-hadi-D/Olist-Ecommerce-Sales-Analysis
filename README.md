@@ -47,6 +47,7 @@ While Python or SQL are standard for large datasets, this project was **delibera
 The business relies heavily on a few core segments. The top three macro-categories (**Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table**) generated approximately **26%** of the grand total revenue during the analyzed timeline. This indicates a strong market fit in these specific niches but exposes the business to risk if these specific categories underperform.
 
 ![Category Revenue Chart](category_insight.JPG)
+
 *Figure 1: Top 3 categories drive over a quarter of total revenue.*
 
 
@@ -57,6 +58,7 @@ Analysis reveals a sharp contrast in customer satisfaction based on delivery per
 *   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.30**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
 
 ![Review Score Comparison](delivery_gap_insight.JPG)
+
 *Figure 2: Late deliveries correlate with a massive 1.66-star drop in satisfaction.*
 
 ### 3. Monthly Revenue Trend
