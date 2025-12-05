@@ -3,12 +3,20 @@
 ![Dashboard Preview](dashboard_overview.jpg)
 *Snapshot of the Interactive Dashboard (Excel)*
 
-##  Executive Summary
-This project analyzes **100k+ anonymized orders** from Olist, a Brazilian e-commerce marketplace, to identify sales trends, logistics performance, and revenue drivers. 
+##  Business Problem & Project Objectives
 
-Using **Microsoft Excel**, I transformed raw relational data into an interactive dashboard. The analysis focuses on the "Mature Operations" phase (Jan 2017 – Aug 2018), filtering out early pilot data and incomplete collection periods to ensure statistical accuracy.
+**The Problem:**
+Olist, a Brazilian e-commerce marketplace, operates in a challenging logistics environment where delivery delays directly impact customer retention. The company lacks visibility into how these logistics inefficiencies affect brand reputation (Review Scores) and needs to identify which product categories drive the majority of revenue to optimize inventory management.
 
-**Key Achievement:** Identified a critical "Logistics Gap" where a 20-day delay in delivery correlates with a 1.6-star drop in customer satisfaction.
+**My Objectives:**
+To address these challenges, I analyzed **100,000+ order records** to:
+1.  **Quantify the cost of delay:** Measure exactly how much late deliveries damage customer satisfaction scores.
+2.  **Identify revenue drivers:** Determine which product categories constitute the "Vital Few" (Pareto Principle) to focus inventory efforts.
+3.  **Analyze seasonal trends:** Investigate sales anomalies, such as the 2018 sales flatline, to understand external market threats.
+4.  **Recommend strategic actions:** Provide data-driven suggestions to improve logistics reliability and reduce churn.
+
+
+After data exploration and cleaning, I visualized critical findings regarding the "Logistics Gap" and sales seasonality. I designed an interactive **Dashboard** using pre-attentive attributes (color/contrast) to highlight KPIs, allowing stakeholders to filter insights by State and Category dynamically.
 
 
 ##  About the Dataset
@@ -18,7 +26,6 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
     * Tables: 9 (Relational CSVs including Orders, Customers, Reviews, Products)
     * Rows: 99,441 Orders (before filtering)
 *   **Timeline:** 2016 to 2018 (Analysis focuses on the 2017-2018 mature period).
-
 
 
 ##  Tools & Strategy
