@@ -45,7 +45,7 @@ While Python or SQL are standard for large datasets, this project was **delibera
 An internal `EDA_&_Stats` sheet was created to validate assumptions:
 *   **Distribution Analysis:** Confirmed a "Long Tail" of late deliveries (20-90 days) using histograms.
 *   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
-*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders enjoy high satisfaction, **47% of late orders receive a 1-star rating**, proving that customers disproportionately punish delivery delays with the lowest possible score.
+*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders have high satisfaction, **47% of late orders receive a 1-star rating**, proving that customers punish delivery delays with the lowest possible score.
 
 ![EDA Sheet Preview](eda_stats_preview.jpg)
 
