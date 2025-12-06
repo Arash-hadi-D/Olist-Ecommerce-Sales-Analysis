@@ -47,7 +47,7 @@ An internal `EDA_&_Stats` sheet was created to validate assumptions:
 *   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
 *   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders enjoy high satisfaction, **47% of late orders receive a 1-star rating**, proving that customers disproportionately punish delivery delays with the lowest possible score.
 
-
+![EDA Sheet Preview](eda_stats_preview.jpg)
 
 
 
