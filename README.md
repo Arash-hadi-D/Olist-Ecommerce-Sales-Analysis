@@ -93,9 +93,10 @@ The technical skills and concepts applied in this project include:
 
 ---
 ###  Project Files
-*   **[Download Project File (Excel)](https://docs.google.com/spreadsheets/d/10fxGrWl1Hgm6WK1cin0v4wGfU9LSxsBL/edit?usp=sharing&ouid=116764094025151136870&rtpof=true&sd=true)**: The complete Excel model (Hosted on Google Drive due to GitHub size limits).
+*   **[Download Project File (Excel)](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)**: The complete Excel model
 *   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.m` for technical review.
-*   `dashboard_overview.jpg`: preview of the final output.
+
+
 
 
 
