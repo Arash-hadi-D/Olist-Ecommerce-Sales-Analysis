@@ -30,6 +30,9 @@ else if [product_category_name_english] = "pet_shop" then "Pet Supplies"
 else if List.Contains({"security_and_services","party_supplies","christmas_supplies","flowers","musical_instruments"}, [product_category_name_english]) then "Miscellaneous & Services"
 else "Other"),
     #"Merged Queries4" = Table.NestedJoin(#"Added Custom1", {"order_id"}, olist_order_reviews_dataset, {"order_id"}, "olist_order_reviews_dataset", JoinKind.LeftOuter),
-    #"Expanded olist_order_reviews_dataset" = Table.ExpandTableColumn(#"Merged Queries4", "olist_order_reviews_dataset", {"review_score"}, {"review_score"})
+    #"Expanded olist_order_reviews_dataset" = Table.ExpandTableColumn(#"Merged Queries4", "olist_order_reviews_dataset", {"review_score"}, {"review_score"}),
+    #"Filtered Rows" = Table.SelectRows(#"Expanded olist_order_reviews_dataset", each [delivery_days] < 91),
+    #"Added Custom2" = Table.AddColumn(#"Filtered Rows", "delivery_status", each if [order_delivered_customer_date] > [order_estimated_delivery_date] then "Late" else "On Time"),
+    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "month_year", each Date.ToText(DateTime.Date([order_purchase_timestamp]), "MMM-yy"))
 in
-    #"Expanded olist_order_reviews_dataset"
+    #"Added Custom3"
