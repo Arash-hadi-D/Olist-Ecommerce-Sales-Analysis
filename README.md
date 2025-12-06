@@ -28,7 +28,7 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
 *   **Timeline:** 2016 to 2018 (Analysis focuses on the 2017-2018 mature period).
 
 
-##  Tools & Strategy
+##  Technical Approach & Strategy
 
 ### Why Excel?
 While Python or SQL are standard for large datasets, this project was **deliberately built in Excel** to demonstrate:
@@ -40,6 +40,16 @@ While Python or SQL are standard for large datasets, this project was **delibera
 *   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days`, `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
 *   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
+
+### 🔎 Exploratory Data Analysis (EDA)
+An internal `EDA_&_Stats` sheet was created to validate assumptions:
+*   **Distribution Analysis:** Confirmed a "Long Tail" of late deliveries (20-90 days) using histograms.
+*   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
+*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders enjoy high satisfaction, **47% of late orders receive a 1-star rating**, proving that customers disproportionately punish delivery delays with the lowest possible score.
+
+
+
+
 
 ##  Key Findings
 
@@ -76,6 +86,7 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
 ##  Skills Showcased
 The technical skills and concepts applied in this project include:
 *   **Data Cleaning & ETL:** Power Query (M Language), Data Type Standardization, Merging Queries.
+   *   *Note: The full M-Code logic is available in `power_query_etl.m` for technical review.*
 *   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
 *   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
 *   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
