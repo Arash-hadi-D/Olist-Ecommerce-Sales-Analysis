@@ -45,7 +45,7 @@ While Python or SQL are standard for large datasets, this project was **delibera
 An internal `EDA_&_Stats` sheet was created to validate assumptions:
 *   **Distribution Analysis:** Confirmed a "Long Tail" of late deliveries (20-90 days) using histograms.
 *   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
-*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders have high satisfaction, **47% of late orders receive a 1-star rating**, proving that customers punish delivery delays with the lowest possible score.
+*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders have high satisfaction, **46.3% of late orders receive a 1-star rating**, proving that customers punish delivery delays with the lowest possible score.
 
 ![EDA Sheet Preview](eda_stats_preview.jpg)
 
@@ -64,7 +64,7 @@ The business relies heavily on a few core segments. The top three macro-categori
 ### 2. The "Logistics Gap"
 Analysis reveals a sharp contrast in customer satisfaction based on delivery performance.
 *   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.4 days).
-*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 30.9 days).
+*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 29.9 days).
 *   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.31**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
 
 ![Review Score Comparison](delivery_gap_insight.png) 
