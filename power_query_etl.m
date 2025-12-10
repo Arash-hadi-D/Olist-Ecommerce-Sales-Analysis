@@ -33,6 +33,6 @@ else "Other"),
     #"Expanded olist_order_reviews_dataset" = Table.ExpandTableColumn(#"Merged Queries4", "olist_order_reviews_dataset", {"review_score"}, {"review_score"}),
     #"Filtered Rows" = Table.SelectRows(#"Expanded olist_order_reviews_dataset", each [delivery_days] < 91),
     #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [Year] > 2016),
-    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [order_purchase_timestamp] >= #datetime(2016, 12, 31, 0, 0, 0) and [order_purchase_timestamp] <= #datetime(2018, 9, 1, 0, 0, 0))
+    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [order_purchase_timestamp] >= #datetime(2017, 1, 1, 0, 0, 0) and [order_purchase_timestamp] <= #datetime(2018, 9, 1, 0, 0, 0))
 in
     #"Filtered Rows2"
