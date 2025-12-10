@@ -9,7 +9,7 @@ let
     #"Expanded Tabelle1" = Table.ExpandTableColumn(#"Merged Queries2", "Tabelle1", {"complete_state_name", "country"}, {"complete_state_name", "country"}),
     #"Inserted Year" = Table.AddColumn(#"Expanded Tabelle1", "Year", each Date.Year([order_purchase_timestamp]), Int64.Type),
     #"Inserted Month" = Table.AddColumn(#"Inserted Year", "Month", each Date.Month([order_purchase_timestamp]), Int64.Type),
-    #"Added Custom" = Table.AddColumn(#"Inserted Month", "delivery_days", each Duration.Days([order_delivered_customer_date] - [order_purchase_timestamp])),
+    #"Added Custom" = Table.AddColumn(#"Inserted Month", "delivery_days", each Duration.TotalDays([order_delivered_customer_date] - [order_purchase_timestamp])),
     #"Merged Queries3" = Table.NestedJoin(#"Added Custom", {"product_category_name"}, product_category_name_translation, {"product_category_name"}, "product_category_name_translation", JoinKind.LeftOuter),
     #"Expanded product_category_name_translation" = Table.ExpandTableColumn(#"Merged Queries3", "product_category_name_translation", {"product_category_name_english"}, {"product_category_name_english"}),
     #"Added Custom1" = Table.AddColumn(#"Expanded product_category_name_translation", "category_group", each if [product_category_name_english] = null 
@@ -32,7 +32,7 @@ else "Other"),
     #"Merged Queries4" = Table.NestedJoin(#"Added Custom1", {"order_id"}, olist_order_reviews_dataset, {"order_id"}, "olist_order_reviews_dataset", JoinKind.LeftOuter),
     #"Expanded olist_order_reviews_dataset" = Table.ExpandTableColumn(#"Merged Queries4", "olist_order_reviews_dataset", {"review_score"}, {"review_score"}),
     #"Filtered Rows" = Table.SelectRows(#"Expanded olist_order_reviews_dataset", each [delivery_days] < 91),
-    #"Added Custom2" = Table.AddColumn(#"Filtered Rows", "delivery_status", each if [order_delivered_customer_date] > [order_estimated_delivery_date] then "Late" else "On Time"),
-    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "month_year", each Date.ToText(DateTime.Date([order_purchase_timestamp]), "MMM-yy"))
+    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [Year] > 2016),
+    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [order_purchase_timestamp] >= #datetime(2016, 12, 31, 0, 0, 0) and [order_purchase_timestamp] <= #datetime(2018, 9, 1, 0, 0, 0))
 in
-    #"Added Custom3"
+    #"Filtered Rows2"
