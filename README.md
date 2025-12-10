@@ -37,7 +37,7 @@ While Python or SQL are standard for large datasets, this project was **delibera
 
 ### Workflow
 *   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
-*   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days` (**using `Duration.TotalDays` to capture fractional time vs. integer rounding**), `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
+*   **Feature Engineering:** Created precision metrics including `Delivery_Time_Days` (**using `Duration.TotalDays` to capture fractional time vs. integer rounding**), `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
 *   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
 
@@ -63,8 +63,8 @@ The business relies heavily on a few core segments. The top three macro-categori
 
 ### 2. The "Logistics Gap"
 Analysis reveals a sharp contrast in customer satisfaction based on delivery performance.
-*   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.4 days).
-*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 29.9 days).
+*   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.8 days).
+*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 30.3 days).
 *   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.31**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
 
 ![Review Score Comparison](delivery_gap_insight.png) 
@@ -90,13 +90,15 @@ The technical skills and concepts applied in this project include:
 *   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
 *   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
 *   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
-*   **Data Validation:** Reconciled calculation logic between Power Query (M) and SQL (BigQuery) to ensure metric consistency across platforms.
+*   **Data Validation:** compared calculation logic between Power Query (M) and SQL (BigQuery) to ensure metric consistency across platforms.
 
 
 ---
 ###  Project Files
 *   **[Download Project File (Excel)](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)**: The complete Excel model
 *   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.m` for technical review.
+*   **SQL Validation:** The full BigQuery SQL code used to validate the Excel metrics is available in `olist_analysis_sql.sql`.
+
 
 
 
