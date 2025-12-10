@@ -37,7 +37,7 @@ While Python or SQL are standard for large datasets, this project was **delibera
 
 ### Workflow
 *   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
-*   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days`, `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
+*   **Feature Engineering:** Created custom metrics including `Delivery_Time_Days` (**using `Duration.TotalDays` to capture fractional time vs. integer rounding**), `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
 *   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
 
@@ -90,6 +90,8 @@ The technical skills and concepts applied in this project include:
 *   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
 *   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
 *   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
+*   **Data Validation:** Reconciled calculation logic between Power Query (M) and SQL (BigQuery) to ensure metric consistency across platforms.
+
 
 ---
 ###  Project Files
