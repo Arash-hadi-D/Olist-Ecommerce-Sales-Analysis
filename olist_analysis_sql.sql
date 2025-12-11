@@ -34,20 +34,17 @@ WITH main_table AS (
         
         oi.price,
         oi.freight_value,
-        (oi.price + oi.freight_value) AS total_order_value,
-        
-        
         p.product_category_name,
         
         
         r.review_score
     -- first i inner join the orders with order items to get only the orders that have items in it(made revenue).
-    FROM `olist_test.olist_orders_dataset` o
-    JOIN `olist_test.olist_order_items_dataset` oi ON o.order_id = oi.order_id
+    FROM olist_orders_dataset o
+    JOIN olist_order_items_dataset oi ON o.order_id = oi.order_id
     --here i do the same with the product dataset to be able to get the product categories for orders
-    JOIN `olist_test.olist_products_dataset` p ON oi.product_id = p.product_id
+    JOIN olist_products_dataset p ON oi.product_id = p.product_id
     --here i left join the results with reviews dataset (i want all of the orders even the ones that doesn't have reviews) to be able to get review scores
-    LEFT JOIN `olist_test.olist_order_reviews_dataset` r ON o.order_id = r.order_id
+    LEFT JOIN olist_order_reviews_dataset r ON o.order_id = r.order_id
     /*here i filter(exclude) orders that are not delivered(only including orders that made revenue), orders made in 2016(gap in collection) and before September
     of 2018(incomplete collection) and outliers of delivery days more than 90(which are probably lost Packages or data entry errors)
     */
@@ -85,5 +82,6 @@ LEFT JOIN product_category_name_translation t ON product_category_name = t.produ
 GROUP BY 1
 ORDER BY 2 DESC 
 limit 3;
+
 
 --end of script
