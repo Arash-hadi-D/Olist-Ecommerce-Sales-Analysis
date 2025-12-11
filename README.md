@@ -16,7 +16,7 @@ To address these challenges, I analyzed **100,000+ order records** to:
 4.  **Recommend strategic actions:** Provide data-driven suggestions to improve logistics reliability and reduce churn.
 
 
-After data exploration and cleaning, I visualized critical findings regarding the "Logistics Gap" and sales seasonality. I designed an interactive **Dashboard** using pre-attentive attributes (color/contrast) to highlight KPIs, allowing stakeholders to filter insights by State and Category dynamically.
+After data exploration and cleaning, I visualized critical findings regarding the "Logistics Gap" and sales seasonality. I designed an interactive **Dashboard** on Excel using pre-attentive attributes (color/contrast) to highlight KPIs, allowing stakeholders to filter insights by State and Category dynamically.
 
 
 ##  About the Dataset
