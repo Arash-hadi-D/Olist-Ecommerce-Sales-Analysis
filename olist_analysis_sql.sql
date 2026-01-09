@@ -73,15 +73,20 @@ ORDER BY 1 DESC;
 
 
 --  here i calculate the top 3 Categories by revenue
-SELECT 
-  COALESCE(t.product_category_name_english, 'Unknown') AS top_3_categories,
-  SUM(price) AS total_revenue
-FROM main_table 
---here i use left join because i need all the rows(they made revenue) even the ones that are not translated
-LEFT JOIN product_category_name_translation t ON product_category_name = t.product_category_name
-GROUP BY 1
-ORDER BY 2 DESC 
-limit 3;
+SELECT * FROM (
+    SELECT 
+      COALESCE(t.product_category_name_english, 'Unknown') AS top_3_categories,
+      SUM(price) AS total_revenue,
+      -- Window Function to rank categories by revenue
+      RANK() OVER (ORDER BY SUM(price) DESC) as revenue_rank
+    FROM main_table 
+    -- Left join to get English names, keeping all revenue-generating rows
+    LEFT JOIN product_category_name_translation t 
+        ON main_table.product_category_name = t.product_category_name
+    GROUP BY 1
+) 
+WHERE revenue_rank <= 3;
 
 
 --end of script
+
