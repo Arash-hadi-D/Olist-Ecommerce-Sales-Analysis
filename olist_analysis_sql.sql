@@ -1,16 +1,21 @@
 /* 
-This script validates the Excel Dashboard logic using Google BigQuery SQL. you will read steps which 
-help you to get Logistics gap stats, Top 3 categories in revenue(price).
-It performs the following operations:
-1. ETL & Data Cleaning (Filtering dates, removing outliers).
-2. Feature Engineering (Delivery Days, Delivery Status).
-3. Metric Calculation (Logistics Gap, Top 3 Revenue Categories).
+This script validates the Excel Dashboard metrics using Google BigQuery SQL. 
+It ensures data integrity for KPIs related to Logistics Performance and Revenue Concentration.
+
+OPERATIONS:
+1. ETL & Cleaning: Filters date ranges (2017-2018), removes outliers (>90 days), and handles NULLs.
+2. Feature Engineering: Calculates 'Delivery_Days' and flags 'Delivery_Status' (Late vs. On-Time).
+3. Analytics:
+   - Quantifies the 'Logistics Gap' (impact of delays on Review Scores).
+   - Identifies Top 3 Revenue Categories using Window Functions.
 */
 
-
-/*in the first step i join the tables then do the necessary data cleaning, filtering and create flags for delivery status also
-calculate the delivery days to have a final Table with all the necessary data needed to get insights from. this dataset is mostly 
-clean but there are some null observations which needs to be addressed. we can do this step by using a CTE.
+/* 
+STEP 1: MAIN CTE (Common Table Expression)
+- Joins Orders, Items, Products, and Reviews tables.
+- Filters for 'delivered' orders within the mature analysis period (Jan 2017 - Aug 2018).
+- Removes data quality outliers (delivery > 90 days).
+- Creates the 'delivery_status' flag for downstream analysis.
 */
 
 WITH main_table AS (
@@ -22,10 +27,10 @@ WITH main_table AS (
         o.order_delivered_customer_date,
         o.order_estimated_delivery_date,
         
-        -- Feature engineering the Delivery Days
+        -- Calculate actual delivery duration in days
         DATE_DIFF(DATE(o.order_delivered_customer_date), DATE(o.order_purchase_timestamp), DAY) AS delivery_days,
 
-        -- flaging orders by Delivery Status (On Time/Late)
+        -- Flag orders as 'Late' or 'On Time' based on estimated delivery date
         CASE 
             WHEN o.order_delivered_customer_date > o.order_estimated_delivery_date THEN 'Late'
             ELSE 'On Time' 
@@ -35,31 +40,27 @@ WITH main_table AS (
         oi.price,
         oi.freight_value,
         p.product_category_name,
-        
-        
         r.review_score
-    -- first i inner join the orders with order items to get only the orders that have items in it(made revenue).
+   
     FROM olist_orders_dataset o
+    -- Inner Join: Only include orders that generated revenue (have items)
     JOIN olist_order_items_dataset oi ON o.order_id = oi.order_id
-    --here i do the same with the product dataset to be able to get the product categories for orders
+   -- Inner Join: Attach product category metadata
     JOIN olist_products_dataset p ON oi.product_id = p.product_id
-    --here i left join the results with reviews dataset (i want all of the orders even the ones that doesn't have reviews) to be able to get review scores
+    -- Left Join: Include all orders even if review is missing (NULL reviews are valid for sales analysis)
     LEFT JOIN olist_order_reviews_dataset r ON o.order_id = r.order_id
-    /*here i filter(exclude) orders that are not delivered(only including orders that made revenue), orders made in 2016(gap in collection) and before September
-    of 2018(incomplete collection) and outliers of delivery days more than 90(which are probably lost Packages or data entry errors)
-    */
+   
     WHERE 
         o.order_status = 'delivered'
         And order_purchase_timestamp BETWEEN '2017-01-01' AND '2018-09-01'
         ANd DATE_DIFF(DATE(o.order_delivered_customer_date), DATE(o.order_purchase_timestamp), DAY) <91
 )
 
---please note that i changed the address of my tables in this code, to make it easier to reproduce.
-
-
--- now i can use the CTE i created above to get my insights
-
--- this querry Calculates the impact of late deliveries on customer satisfaction.
+/* 
+STEP 2: LOGISTICS GAP ANALYSIS
+- Aggregates metrics by Delivery Status to quantify customer satisfaction impact.
+- Uses COUNT(DISTINCT) because order_id duplicates exist due to multiple items per order.
+*/
 SELECT 
     delivery_status,
     /*i use Distinct with count function because i only want the unique orders  
@@ -72,7 +73,12 @@ GROUP BY 1
 ORDER BY 1 DESC;
 
 
---  here i calculate the top 3 Categories by revenue
+/* 
+STEP 3: REVENUE CONCENTRATION (PARETO ANALYSIS)
+- Identifies Top 3 categories driving revenue.
+- Uses Window Functions (RANK) to handle ties robustly.
+- Uses COALESCE to handle missing English translations.
+*/
 SELECT * FROM (
     SELECT 
       COALESCE(t.product_category_name_english, 'Unknown') AS top_3_categories,
@@ -89,4 +95,5 @@ WHERE revenue_rank <= 3;
 
 
 --end of script
+
 
