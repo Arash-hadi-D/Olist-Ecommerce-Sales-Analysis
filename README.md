@@ -30,10 +30,8 @@ The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](h
 
 ##  Technical Approach & Strategy
 
-### Why Excel?
-While Python or SQL are standard for large datasets, this project was **deliberately built in Excel** to demonstrate:
-1.  **Stakeholder Accessibility:** Creating a "low-code" tool that business executives can interact with immediately, without needing a Python environment or SQL access.
-2.  **Advanced Data Modeling:** showcasing the use of **Power Query** and **Data Models** to handle 100k+ rows efficiently, bypassing standard spreadsheet limitations.
+### Why Excel + SQL?
+This project combines the **analytical power of SQL** with the **accessibility of Excel**. The dashboard was built in Excel to allow non-technical stakeholders to interact with the data, while **SQL (BigQuery)** was used for backend data validation and quality assurance.
 
 ### Workflow
 *   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
@@ -49,6 +47,19 @@ An internal `EDA_&_Stats` sheet was created to validate assumptions:
 
 ![EDA Sheet Preview](eda_stats_preview.jpg)
 
+## 🛠️ Technical Implementation: Excel & SQL Dual-Validation
+
+To ensure data integrity, I implemented a **Dual-Validation Strategy**. While the final dashboard is built in Excel for stakeholder accessibility, the core logic was first prototyped and rigorously tested using **SQL (BigQuery)**.
+
+**Why SQL?**
+I used SQL to "stress test" the Excel calculations, ensuring that complex metrics like *Delivery Time* and *Review Score Correlations* were accurate across 100,000+ rows.
+
+**Key SQL Logic Used:**
+*   **CTEs (Common Table Expressions):** Used to pre-filter the dataset (removing 2016 data and >90-day outliers) before aggregation, replicating the Power Query "M" logic.
+*   **Feature Engineering:** Calculated `delivery_status` flags ("Late" vs "On-Time") using `CASE` statements to verify the "Logistics Gap" findings.
+*   **Window Functions & Aggregation:** Validated the "Top 3 Categories" ranking to ensure no revenue was dropped during the multi-table joins.
+
+*(See the full validation script in `olist_analysis_sql.sql`)*
 
 
 ##  Key Findings
@@ -97,7 +108,8 @@ The technical skills and concepts applied in this project include:
 ###  Project Files
 *   **[Download Project File (Excel)](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)**: The complete Excel model
 *   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.m` for technical review.
-*   **SQL Validation:** The full BigQuery SQL code used to validate the Excel metrics is available in `olist_analysis_sql.sql`.
+*   **SQL Validation Script (olist_analysis_sql.sql):** Contains the CTEs, Joins, and Logic used to stress-test the Excel data model and verify the "Logistics Gap" findings.
+
 
 
 
