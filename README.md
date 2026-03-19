@@ -114,11 +114,11 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
 - Revenue was highly concentrated in a few categories. **Furniture & Décor, Sports & Outdoor, and Electronics & Technology** contributed about **51.4% of total GMV**, while the top 5 categories generated about **74.1%**.  
   **Suggested action:** Protect top categories operationally while growing mid-tier categories to reduce concentration risk.
 
-- **Furniture & Décor** was the strongest category overall, ranking first in both **revenue ($3.56M)** and **orders containing category (23,129)**.  
-  **Suggested action:** Use it as a benchmark category to identify practices that can be replicated elsewhere.
+- **Furniture & Décor** was the strongest Category_Group overall, ranking first in both **revenue ($3.56M)** and **orders containing Category_Group (23,129)**.  
+  **Suggested action:** Use it as a benchmark Category_Group to identify practices that can be replicated elsewhere.
 
 - Monthly GMV rose from **$138k in January 2017** to **$1.20M in November 2017**, then stayed above **$1.0M** for most of 2018, indicating a shift from rapid growth to higher-volume stability.  
-  **Suggested action:** Compare weaker months against peak months to identify the category and operational patterns behind stronger performance.
+  **Suggested action:** Compare weaker months against peak months to identify the Category_Group and operational patterns behind stronger performance.
 
 - Payment behavior was heavily concentrated in **credit card** usage, with **boleto** as the second most common method.  
   **Suggested action:** Optimize the checkout experience around dominant payment methods while improving secondary payment flows where useful.
@@ -127,7 +127,7 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
   **Suggested action:** Treat higher-value categories as premium growth opportunities and lower-value ones as basket-building support categories.
 
 ## Recommended Business Actions
-1.  **Monitor delivery reliability as a core business KPI:** Track late rate by seller, category, and state to identify where customer experience is most exposed.
+1.  **Monitor delivery reliability as a core business KPI:** Track late rate by seller, Category_Group, and state to identify where customer experience is most exposed.
 2.  **Protect top revenue-driving categories:** Strengthen supplier, inventory, and fulfillment focus in the categories that now account for most GMV.
 3.  **Benchmark peak-performance months:** Use late 2017 and early 2018 as reference periods to study the conditions behind stronger commercial performance.
 4.  **Optimize around dominant payment behavior:** Improve checkout flows for the most-used payment methods while testing lower-friction alternatives for secondary methods.
