@@ -4,7 +4,11 @@
 
 **Live Dashboard:** [Open the interactive Tableau dashboard]([YOUR_TABLEAU_PUBLIC_LINK](https://public.tableau.com/views/OlistE-commercePerformanceDashboard_17739255935960/E-commercePerformanceDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))  
 **Project File:** [Download the Excel dashboard](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)  
-**Validation Logic:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) | [`power_query_etl.m`](power_query_etl.m)
+**Validation Logic:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) | [`power_query_etl.pq.txt`](power_query_etl.pq.txt)
+
+## Project Summary
+
+This project analyzes 100k+ Brazilian e-commerce orders from Olist to understand revenue concentration, customer satisfaction, and fulfillment performance. The original solution was built in Excel with Power Query and SQL validation. A second Tableau Public dashboard was added to present the same cleaned data in a recruiter-friendly BI format.
 
 ![Tableau Dashboard Preview](olist_tableau_dashboard_final.png)
 *Final Tableau dashboard built from the cleaned Olist dataset. This complements the original Excel dashboard with an e-commerce KPI view focused on GMV, AOV, customer count, late rate, and payment mix.*
