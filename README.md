@@ -1,7 +1,16 @@
-#  Olist E-Commerce Brazilian Sales Analysis
+# Olist E-Commerce Brazilian Sales Analysis
+
+**Tools:** Excel | Power Query | SQL (BigQuery) | Tableau Public
+
+**Live Dashboard:** [Open the interactive Tableau dashboard]([YOUR_TABLEAU_PUBLIC_LINK](https://public.tableau.com/views/OlistE-commercePerformanceDashboard_17739255935960/E-commercePerformanceDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))  
+**Project File:** [Download the Excel dashboard](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)  
+**Validation Logic:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) | [`power_query_etl.m`](power_query_etl.m)
+
+![Tableau Dashboard Preview](olist_tableau_dashboard_final.png)
+*Final Tableau dashboard built from the cleaned Olist dataset. This complements the original Excel dashboard with an e-commerce KPI view focused on GMV, AOV, customer count, late rate, and payment mix.*
 
 ![Dashboard Preview](dashboard_overview.jpg)
-*Snapshot of the Interactive Dashboard (Excel)*
+*Original interactive Excel dashboard built with Power Query, Pivot modeling, and slicers.*
 
 ##  Business Problem & Project Objectives
 
