@@ -2,7 +2,7 @@
 
 **Tools:** Excel | Power Query | SQL (BigQuery) | Tableau Public
 
-**Live Dashboard:** [Open the interactive Tableau dashboard]([YOUR_TABLEAU_PUBLIC_LINK](https://public.tableau.com/views/OlistE-commercePerformanceDashboard_17739255935960/E-commercePerformanceDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))  
+**Live Dashboard:** [Open the interactive Tableau dashboard](https://public.tableau.com/views/OlistE-commercePerformanceDashboard_17739255935960/E-commercePerformanceDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
 **Project File:** [Download the Excel dashboard](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)  
 **Validation Logic:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) | [`power_query_etl.pq.txt`](power_query_etl.pq.txt)
 
