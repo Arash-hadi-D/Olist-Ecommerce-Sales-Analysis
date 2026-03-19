@@ -52,7 +52,7 @@ This project combines the **analytical power of SQL** with the **accessibility o
 *   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
 *   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
 
-### 🔎 Exploratory Data Analysis (EDA)
+###  Exploratory Data Analysis (EDA)
 An internal `EDA_&_Stats` sheet was created to validate assumptions:
 *   **Distribution Analysis:** Confirmed a "Long Tail" of late deliveries (20-90 days) using histograms.
 *   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
@@ -60,7 +60,7 @@ An internal `EDA_&_Stats` sheet was created to validate assumptions:
 
 ![EDA Sheet Preview](eda_stats_preview.jpg)
 
-## 🛠️ Technical Implementation: Excel & SQL Dual-Validation
+##  Technical Implementation: Excel & SQL Dual-Validation
 
 To ensure data integrity, I implemented a **Dual-Validation Strategy**. While the final dashboard is built in Excel for stakeholder accessibility, the core logic was first prototyped and rigorously tested using **SQL (BigQuery)**.
 
@@ -106,11 +106,36 @@ The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a d
 
 3.  **Seasonal Retention Strategy:** Launching a dedicated "Post-May" investigation task force. If no concrete result was found, counter it with mid-year promotions or loyalty incentives.
 
+## Key Insights from the Tableau Dashboard
+
+- The business generated **$16.12M GMV** across **96,128 orders** from **93,021 unique customers**, with an **AOV of $167.70**, an average review score of **4.08/5**, and a **late delivery rate of 8.1%**.  
+  **Suggested action:** Track late delivery rate as a core business KPI and monitor it by category, seller, and region.
+
+- Revenue was highly concentrated in a few categories. **Furniture & Décor, Sports & Outdoor, and Electronics & Technology** contributed about **51.4% of total GMV**, while the top 5 categories generated about **74.1%**.  
+  **Suggested action:** Protect top categories operationally while growing mid-tier categories to reduce concentration risk.
+
+- **Furniture & Décor** was the strongest category overall, ranking first in both **revenue ($3.56M)** and **orders containing category (23,129)**.  
+  **Suggested action:** Use it as a benchmark category to identify practices that can be replicated elsewhere.
+
+- Monthly GMV rose from **$138k in January 2017** to **$1.20M in November 2017**, then stayed above **$1.0M** for most of 2018, indicating a shift from rapid growth to higher-volume stability.  
+  **Suggested action:** Compare weaker months against peak months to identify the category and operational patterns behind stronger performance.
+
+- Payment behavior was heavily concentrated in **credit card** usage, with **boleto** as the second most common method.  
+  **Suggested action:** Optimize the checkout experience around dominant payment methods while improving secondary payment flows where useful.
+
+- Category comparison suggests that some groups, such as **Home & Appliances**, **Fashion & Accessories**, and **Tools & Automotive**, generated relatively stronger value per order-containing-category than lower-value groups like **Food & Drinks** and **Books & Arts**.  
+  **Suggested action:** Treat higher-value categories as premium growth opportunities and lower-value ones as basket-building support categories.
+
+## Recommended Business Actions
+1.  **Monitor delivery reliability as a core business KPI:** Track late rate by seller, category, and state to identify where customer experience is most exposed.
+2.  **Protect top revenue-driving categories:** Strengthen supplier, inventory, and fulfillment focus in the categories that now account for most GMV.
+3.  **Benchmark peak-performance months:** Use late 2017 and early 2018 as reference periods to study the conditions behind stronger commercial performance.
+4.  **Optimize around dominant payment behavior:** Improve checkout flows for the most-used payment methods while testing lower-friction alternatives for secondary methods.
 
 ##  Skills Showcased
 The technical skills and concepts applied in this project include:
 *   **Data Cleaning & ETL:** Power Query (M Language), Data Type Standardization, Merging Queries.
-   *   *Note: The full M-Code logic is available in `power_query_etl.m` for technical review.*
+   *   *Note: The full M-Code logic is available in `power_query_etl.txt` for technical review.*
 *   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
 *   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
 *   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
@@ -120,7 +145,7 @@ The technical skills and concepts applied in this project include:
 ---
 ###  Project Files
 *   **[Download Project File (Excel)](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)**: The complete Excel model
-*   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.m` for technical review.
+*   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.txt` for technical review.
 *   **SQL Validation Script (olist_analysis_sql.sql):** Contains the CTEs, Joins, and Logic used to stress-test the Excel data model and verify the "Logistics Gap" findings.
 
 
