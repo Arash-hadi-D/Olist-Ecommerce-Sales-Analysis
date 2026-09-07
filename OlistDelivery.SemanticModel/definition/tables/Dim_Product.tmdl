@@ -1,0 +1,45 @@
+table Dim_Product
+	lineageTag: e0160192-c311-56b7-bfcd-b10886407427
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: 70f5e9be-f94a-5338-87a8-2100d9b686f4
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name
+		dataType: string
+		isHidden
+		lineageTag: 99c96483-e9d9-5f3d-b19a-fde2a8fa5a64
+		summarizeBy: none
+		sourceColumn: product_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name_english
+		dataType: string
+		lineageTag: cf4288f4-16b6-589f-8ce7-f4a4ae43d448
+		summarizeBy: none
+		sourceColumn: product_category_name_english
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_group
+		dataType: string
+		lineageTag: 718b29f9-5dfe-5f24-abb6-95bb72985428
+		summarizeBy: none
+		sourceColumn: category_group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("E:\Olist_project\merging to one\for claude\powerbi_data\Dim_Product.parquet"))
+				in
+				    Source
+

@@ -1,0 +1,254 @@
+table Fact_Order
+	lineageTag: fb9e45de-89b6-5af2-983a-348175c8dcd0
+
+	measure Orders = COUNTROWS('Fact_Order')
+		formatString: #,0
+		lineageTag: 446b0e84-149d-5375-862d-3ae7b6deb301
+
+	measure 'Orders with Review' = CALCULATE([Orders], NOT ISBLANK('Fact_Order'[review_score]))
+		formatString: #,0
+		lineageTag: d0156010-1002-5383-bca1-d58f19ca44eb
+
+	/// Correct: one row per order. Compare against Avg Review (Item-Weighted).
+	measure 'Avg Review Score' = AVERAGE('Fact_Order'[review_score])
+		formatString: 0.00
+		lineageTag: 6d3b71aa-d99c-5e9f-be25-b286625da097
+
+	/// Reproduces the flat-table error: repeats an order's score once per line item. Shown only to demonstrate the bias.
+	measure 'Avg Review (Item-Weighted)' = DIVIDE(SUMX('Fact_OrderItem', RELATED('Fact_Order'[review_score])), COUNTROWS('Fact_OrderItem'))
+		formatString: 0.00
+		lineageTag: 18e0a466-aee6-5fe1-86cf-5684ae2edd63
+
+	measure 'Review Weighting Bias' = [Avg Review (Item-Weighted)] - [Avg Review Score]
+		formatString: 0.000
+		lineageTag: fb53be68-b93c-574b-ae7e-a51cd5eff89d
+
+	measure 'Late Orders' = CALCULATE([Orders], 'Fact_Order'[is_late] = 1)
+		formatString: #,0
+		lineageTag: 51fd5bf8-9117-5bfb-b0ad-e014c184caf3
+
+	measure 'Late Rate %' = DIVIDE([Late Orders], [Orders])
+		formatString: 0.0%
+		lineageTag: 4496906b-af53-5dc3-9175-90648fcc69bb
+
+	measure 'Avg Delivery Days' = AVERAGE('Fact_Order'[delivery_days])
+		formatString: 0.0
+		lineageTag: 0ffd3688-307f-518e-8d75-e8a997becabf
+
+	measure 'Median Delivery Days' = MEDIAN('Fact_Order'[delivery_days])
+		formatString: 0.0
+		lineageTag: 13eafa06-cf0b-5f70-b807-5832df36b1d8
+
+	measure 'Avg Days Late' = CALCULATE(AVERAGE('Fact_Order'[days_late]), 'Fact_Order'[is_late] = 1)
+		formatString: 0.0
+		lineageTag: e509b2f1-15d1-5254-bd33-8ed80b6c3f71
+
+	measure 'Avg Review (On Time)' = CALCULATE([Avg Review Score], 'Fact_Order'[is_late] = 0)
+		formatString: 0.00
+		lineageTag: 1cfe6cbf-5f8a-5855-af22-8bf6398b0241
+
+	measure 'Avg Review (Late)' = CALCULATE([Avg Review Score], 'Fact_Order'[is_late] = 1)
+		formatString: 0.00
+		lineageTag: c9de66a0-ffae-5bc1-b86d-5c8f7a44aa2e
+
+	/// Stars lost when an order arrives late.
+	measure 'Review Gap' = [Avg Review (On Time)] - [Avg Review (Late)]
+		formatString: 0.00
+		lineageTag: 9adad88e-2740-5120-ad8a-73a71a08c5a7
+
+	measure '1-Star Orders' = CALCULATE([Orders], 'Fact_Order'[review_score_star] = 1)
+		formatString: #,0
+		lineageTag: 016513b5-eb74-5586-819a-df045d983c86
+
+	measure '1-Star Rate %' = DIVIDE([1-Star Orders], [Orders with Review])
+		formatString: 0.0%
+		lineageTag: 86a4f1db-8de1-5b0f-aec3-b29dc2deb6a9
+
+	column order_id
+		dataType: string
+		isHidden
+		lineageTag: c52e3521-c134-5c66-8b44-7c3409484560
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		isHidden
+		lineageTag: 7218fa0d-00ac-5d20-9f27-81d4589e4ae6
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		isHidden
+		lineageTag: bbcf80cd-9487-505e-9d6a-eb4b6840c8de
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		isHidden
+		lineageTag: d1bb9755-ae21-5aee-8ec3-8537d0c8cdf2
+		summarizeBy: none
+		sourceColumn: order_purchase_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		isHidden
+		lineageTag: a69dcc49-f5a0-5f7d-bc2b-cf92ecf7c50f
+		summarizeBy: none
+		sourceColumn: order_delivered_customer_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		isHidden
+		lineageTag: bfb459fd-b597-5723-afe3-9a25f5c6a291
+		summarizeBy: none
+		sourceColumn: order_estimated_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: double
+		lineageTag: 0f85b6a3-6d54-514f-bda3-5aba2935c71f
+		summarizeBy: none
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Original label from the Excel extract. Kept for audit, not used in visuals.
+	column delivery_status_source
+		dataType: string
+		isHidden
+		lineageTag: 330c4c7a-86c8-59b2-ad28-988b20f7210f
+		summarizeBy: none
+		sourceColumn: delivery_status_source
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Old rule: delivered timestamp > estimated date at midnight. 7,746 orders. Superseded by is_late.
+	column is_late_timestamp_rule
+		dataType: int64
+		isHidden
+		lineageTag: 185507c4-afb3-5f83-a264-a31fd2a8b630
+		summarizeBy: none
+		sourceColumn: is_late_timestamp_rule
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_count
+		dataType: int64
+		lineageTag: 90a0609b-2741-50d3-a97e-dcfbcab4efec
+		summarizeBy: none
+		sourceColumn: item_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_value
+		dataType: double
+		isHidden
+		lineageTag: 23d420d8-3abf-5936-a3df-fc69d79c4de4
+		summarizeBy: none
+		sourceColumn: order_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: double
+		isHidden
+		lineageTag: 7865fa73-91ac-53d3-838b-fe09660a7a1e
+		summarizeBy: none
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_reviews
+		dataType: double
+		isHidden
+		lineageTag: b44083b1-16c5-5e1f-a025-515dd32c02b1
+		summarizeBy: sum
+		sourceColumn: n_reviews
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column review_score_star
+		dataType: double
+		lineageTag: e590ed1c-1520-53f0-a315-100b66ca7bf0
+		summarizeBy: sum
+		sourceColumn: review_score_star
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Date-only rule: delivered calendar day later than promised calendar day. 6,455 orders.
+	column is_late
+		dataType: int64
+		isHidden
+		lineageTag: 87a7a5b9-7254-572b-b7ed-4b6d2f32d826
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_late
+		dataType: double
+		lineageTag: 6d6da258-238d-5d3c-8360-c70eef0125cf
+		summarizeBy: none
+		sourceColumn: days_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_early
+		dataType: double
+		isHidden
+		lineageTag: bcc51e4f-453a-54a2-8a11-14b38afbb884
+		summarizeBy: none
+		sourceColumn: days_early
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_outcome
+		dataType: string
+		lineageTag: 67cfa328-f723-58f4-a3de-a3ee5a2d3633
+		summarizeBy: none
+		sourceColumn: delivery_outcome
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Band' = SWITCH( TRUE(), 'Fact_Order'[delivery_days] <= 3, "0-3 days", 'Fact_Order'[delivery_days] <= 7, "4-7 days", 'Fact_Order'[delivery_days] <= 14, "8-14 days", 'Fact_Order'[delivery_days] <= 30, "15-30 days", "30+ days" )
+		dataType: string
+		lineageTag: 070db1b5-ab3b-5c8e-ad69-4f5f642d07a2
+		summarizeBy: none
+		sortByColumn: 'Delivery Band Sort'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Delivery Band Sort' = SWITCH( TRUE(), 'Fact_Order'[delivery_days] <= 3, 1, 'Fact_Order'[delivery_days] <= 7, 2, 'Fact_Order'[delivery_days] <= 14, 3, 'Fact_Order'[delivery_days] <= 30, 4, 5 )
+		dataType: int64
+		isHidden
+		lineageTag: b443c146-41e9-52ee-88a4-71e21dc6cb4d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Order = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("E:\Olist_project\merging to one\for claude\powerbi_data\Fact_Order.parquet"))
+				in
+				    Source
+

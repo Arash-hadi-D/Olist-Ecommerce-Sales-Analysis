@@ -1,0 +1,124 @@
+table Fact_OrderItem
+	lineageTag: d1013b63-50c5-59d1-ac3a-e378da432a51
+
+	measure Revenue = SUM('Fact_OrderItem'[total_order_value])
+		formatString: #,0
+		lineageTag: cfcedd6c-699c-5f9e-9dfb-bf7257f0ef9b
+
+	measure 'Product Revenue' = SUM('Fact_OrderItem'[price])
+		formatString: #,0
+		lineageTag: 43e5c9a7-2679-5c49-8bda-42ae8221d7e2
+
+	measure 'Freight Cost' = SUM('Fact_OrderItem'[freight_value])
+		formatString: #,0
+		lineageTag: 0cf3e9a7-db96-5761-b376-cb0594fc897c
+
+	measure 'Freight % of Revenue' = DIVIDE([Freight Cost], [Revenue])
+		formatString: 0.0%
+		lineageTag: f7f705e7-1136-589a-be22-a4fc869399c1
+
+	measure 'Items Sold' = COUNTROWS('Fact_OrderItem')
+		formatString: #,0
+		lineageTag: 29af9372-ebb1-59de-926b-a8ba921025f9
+
+	measure Sellers = DISTINCTCOUNT('Fact_OrderItem'[seller_id])
+		formatString: #,0
+		lineageTag: dae46289-2f4c-53d3-907e-3eabc3a52e3c
+
+	measure 'Avg Order Value' = DIVIDE([Revenue], [Orders])
+		formatString: #,0.00
+		lineageTag: 8ceb986c-748e-5cac-9338-2618717c46d6
+
+	measure 'Avg Items per Order' = DIVIDE([Items Sold], [Orders])
+		formatString: 0.00
+		lineageTag: 1c63f1d5-ba2b-5767-9c1e-18a604368513
+
+	column order_id
+		dataType: string
+		isHidden
+		lineageTag: 5e0bc83f-6bb2-5e26-9571-211bf4f7261e
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		isHidden
+		lineageTag: e3ef0107-4066-538e-8475-4458513ff7d1
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: 8ef59d4a-37ee-5db8-90b5-d87fce148237
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		isHidden
+		lineageTag: 73964ea8-6f00-53a9-b789-ad044669e6f3
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		isHidden
+		lineageTag: 6cd2765f-ec68-5beb-8585-59dc3da3db2c
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_limit_date
+		dataType: dateTime
+		isHidden
+		lineageTag: d7bf93cd-abba-52a9-bcd9-4ed5108a0fa2
+		summarizeBy: none
+		sourceColumn: shipping_limit_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		isHidden
+		lineageTag: 0a2c40c7-c424-521e-88df-b37b8dea2d9a
+		summarizeBy: none
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_value
+		dataType: double
+		isHidden
+		lineageTag: 557aaf45-2b7a-59c3-b301-ead405d38618
+		summarizeBy: none
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_order_value
+		dataType: double
+		isHidden
+		lineageTag: 8741d119-6434-5790-bf55-dcf4df7217b7
+		summarizeBy: none
+		sourceColumn: total_order_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_OrderItem = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("E:\Olist_project\merging to one\for claude\powerbi_data\Fact_OrderItem.parquet"))
+				in
+				    Source
+

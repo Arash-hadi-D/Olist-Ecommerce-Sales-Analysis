@@ -1,0 +1,65 @@
+table Dim_Customer
+	lineageTag: 0e0dbf12-16e5-5868-a39c-48c74bfa37c2
+
+	column customer_unique_id
+		dataType: string
+		isHidden
+		lineageTag: 614e46db-f5ed-516f-a0dd-926e43c5ed4d
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_zip_code_prefix
+		dataType: int64
+		lineageTag: 5cb6cf0a-6210-5f3f-8753-5221656be58c
+		dataCategory: PostalCode
+		summarizeBy: none
+		sourceColumn: customer_zip_code_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: f7f3c404-7a6d-502e-86a9-0d380cbd4061
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: 37596eed-d91e-58c9-bda7-65a86d2d982f
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column complete_state_name
+		dataType: string
+		lineageTag: 0f272a99-5b46-5a56-9a51-94cc6f4d3246
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: complete_state_name
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Constant. Present so map visuals resolve Brazilian states unambiguously.
+	column Country = "Brazil"
+		dataType: string
+		lineageTag: 9b0ecd8f-0b76-5d51-860f-3d89ff99b793
+		dataCategory: Country
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Customer = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents("E:\Olist_project\merging to one\for claude\powerbi_data\Dim_Customer.parquet"))
+				in
+				    Source
+

@@ -1,0 +1,211 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "1007c8d08ff58be0ba36",
+  "position": {
+    "x": 970,
+    "y": 650,
+    "z": 8001,
+    "height": 390,
+    "width": 920,
+    "tabOrder": 8001
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "Delivery Band"
+                }
+              },
+              "queryRef": "Fact_Order.Delivery Band",
+              "nativeQueryRef": "Delivery Band"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "Orders"
+                }
+              },
+              "queryRef": "Fact_Order.Orders",
+              "nativeQueryRef": "Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "Avg Review Score"
+                }
+              },
+              "queryRef": "Fact_Order.Avg Review Score",
+              "nativeQueryRef": "Avg Review Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "Avg Review (Item-Weighted)"
+                }
+              },
+              "queryRef": "Fact_Order.Avg Review (Item-Weighted)",
+              "nativeQueryRef": "Avg Review (Item-Weighted)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "1-Star Rate %"
+                }
+              },
+              "queryRef": "Fact_Order.1-Star Rate %",
+              "nativeQueryRef": "1-Star Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Order"
+                    }
+                  },
+                  "Property": "Avg Days Late"
+                }
+              },
+              "queryRef": "Fact_Order.Avg Days Late",
+              "nativeQueryRef": "Avg Days Late"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Delivered orders only, Jan 2017 - Aug 2018.  Late = delivered after the promised calendar day.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "d476b888b103149e36a4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "Delivery Band"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "3c773d06c801bd6017cb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "Orders"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "416153fcd916c27818b5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "Avg Review Score"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "eab1a056428d55bff5b5",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "Avg Review (Item-Weighted)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "702ebaa4f08598a0592e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "1-Star Rate %"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "e7a3983197e6535e4e27",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Fact_Order"
+              }
+            },
+            "Property": "Avg Days Late"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
