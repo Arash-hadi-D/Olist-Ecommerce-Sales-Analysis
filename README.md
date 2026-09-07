@@ -1,156 +1,240 @@
-# Olist E-Commerce Brazilian Sales Analysis
+# Olist Brazilian E-Commerce: delivery, reviews and revenue
 
-**Tools:** Excel | Power Query | SQL (BigQuery) | Tableau Public
+**Tools:** Excel | Power Query (M) | SQL (BigQuery) | Tableau Public | Power BI Desktop (PBIP / TMDL)
 
-**Live Dashboard:** [Open the interactive Tableau dashboard](https://public.tableau.com/views/OlistE-commercePerformanceDashboard_17739255935960/E-commercePerformanceDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
-**Project File:** [Download the Excel dashboard](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)  
-**Validation Logic:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) | [`power_query_etl.pq.txt`](power_query_etl.pq.txt)
+**Live Tableau dashboard:** [Olist Logistics - Corrected](https://public.tableau.com/app/profile/arash.hadi/viz/Olist_Logistics_Corrected/OlistLogistics-Corrected)
 
-## Project Summary
+**Downloads:** [Releases page](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases), holding the packaged Tableau workbook (`.twbx`) and the Excel model (`.xlsx`).
 
-This project analyzes 100k+ Brazilian e-commerce orders from Olist to understand revenue concentration, customer satisfaction, and fulfillment performance. The original solution was built in Excel with Power Query and SQL validation. A second Tableau Public dashboard was added to present the same cleaned data in a recruiter-friendly BI format.
-
-![Tableau Dashboard Preview](olist_tableau_dashboard_final.png)
-*Final Tableau dashboard built from the cleaned Olist dataset. This complements the original Excel dashboard with an e-commerce KPI view focused on GMV, AOV, customer count, late rate, and payment mix.*
-
-![Dashboard Preview](dashboard_overview.jpg)
-*Original interactive Excel dashboard built with Power Query, Pivot modeling, and slicers.*
-
-##  Business Problem & Project Objectives
-
-**The Problem:**
-Olist, a Brazilian e-commerce marketplace, operates in a challenging logistics environment where delivery delays directly impact customer retention. The company lacks visibility into how these logistics inefficiencies affect brand reputation (Review Scores) and needs to identify which product categories drive the majority of revenue to optimize inventory management.
-
-**My Objectives:**
-To address these challenges, I analyzed **100,000+ order records** to:
-1.  **Quantify the cost of delay:** Measure exactly how much late deliveries damage customer satisfaction scores.
-2.  **Identify revenue drivers:** Determine which product categories constitute the "Vital Few" (Pareto Principle) to focus inventory efforts.
-3.  **Analyze seasonal trends:** Investigate sales anomalies, such as the 2018 sales flatline, to understand external market threats.
-4.  **Recommend strategic actions:** Provide data-driven suggestions to improve logistics reliability and reduce churn.
-
-
-After data exploration and cleaning, I visualized critical findings regarding the "Logistics Gap" and sales seasonality. I designed an interactive **Dashboard** on Excel using pre-attentive attributes (color/contrast) to highlight KPIs, allowing stakeholders to filter insights by State and Category dynamically.
-
-
-##  About the Dataset
-The data was sourced from the **[Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)** on Kaggle. 
-*   **Description:** This is real commercial data (anonymized) comprising 100,000 orders made at multiple marketplaces in Brazil.
-*   **Scope:** It connects the order lifecycle from purchase to delivery, including customer reviews, seller location, product attributes, and geolocation data.
-    * Tables: 9 (Relational CSVs including Orders, Customers, Reviews, Products)
-    * Rows: 99,441 Orders (before filtering)
-*   **Timeline:** 2016 to 2018 (Analysis focuses on the 2017-2018 mature period).
-
-
-##  Technical Approach & Strategy
-
-### Why Excel + SQL?
-This project combines the **analytical power of SQL** with the **accessibility of Excel**. The dashboard was built in Excel to allow non-technical stakeholders to interact with the data, while **SQL (BigQuery)** was used for backend data validation and quality assurance.
-
-### Workflow
-*   **Data Cleaning (Power Query):** Merged multiple relational tables (Orders, Reviews, Customers, Geolocation, Products) and standardized data types.
-*   **Feature Engineering:** Created precision metrics including `Delivery_Time_Days` (**using `Duration.TotalDays` to capture fractional time vs. integer rounding**), `Delivery_Status` (On-Time vs. Late), and `Category_Groups`(reducing 74 Categories to 14 Category_groups).
-*   **Data Modeling:** Utilized Pivot Tables and Data Models to aggregate millions of data points into dynamic KPIs.
-*   **Visualization:** Designed a professional dynamic Dashboard using Slicers, Linked Pictures, and Geographic Heat Maps.
-
-###  Exploratory Data Analysis (EDA)
-An internal `EDA_&_Stats` sheet was created to validate assumptions:
-*   **Distribution Analysis:** Confirmed a "Long Tail" of late deliveries (20-90 days) using histograms.
-*   **Outlier Removal:** Filtered 2,500+ records with order status not being delivered and capped delivery time at 90 days to ensure metric stability.
-*   **Sentiment Analysis:** Identified a "J-Curve" in reviews. While on-time orders have high satisfaction, **46.3% of late orders receive a 1-star rating**, proving that customers punish delivery delays with the lowest possible score.
-
-![EDA Sheet Preview](eda_stats_preview.jpg)
-
-##  Technical Implementation: Excel & SQL Dual-Validation
-
-To ensure data integrity, I implemented a **Dual-Validation Strategy**. While the final dashboard is built in Excel for stakeholder accessibility, the core logic was first prototyped and rigorously tested using **SQL (BigQuery)**.
-
-**Why SQL?**
-I used SQL to "stress test" the Excel calculations, ensuring that complex metrics like *Delivery Time* and *Review Score Correlations* were accurate across 100,000+ rows.
-
-**Key SQL Logic Used:**
-*   **CTEs (Common Table Expressions):** Used to pre-filter the dataset (removing 2016 data and >90-day outliers) before aggregation, replicating the Power Query "M" logic.
-*   **Feature Engineering:** Calculated `delivery_status` flags ("Late" vs "On-Time") using `CASE` statements to verify the "Logistics Gap" findings.
-*   **Window Functions & Aggregation:** Validated the "Top 3 Categories" ranking to ensure no revenue was dropped during the multi-table joins.
-
-*(See the full validation script in `olist_analysis_sql.sql`)*
-
-
-##  Key Findings
-
-### 1. Revenue Concentration
-The business relies heavily on a few core segments. The top three macro-categories (**Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table**) generated  **26%** of the grand total revenue during the analyzed timeline. This indicates a strong market fit in these specific niches but exposes the business to risk if these specific categories underperform.
-
-![Category Revenue Chart](category_insight.JPG)
-
-*Figure 1: Top 3 categories drive over a quarter of total revenue.*
-
-
-### 2. The "Logistics Gap"
-Analysis reveals a sharp contrast in customer satisfaction based on delivery performance.
-*   **On-time deliveries:** Average Review Score of **4.21/5** (Avg delivery time: 10.8 days).
-*   **Delayed deliveries:** Average Review Score decreases to **2.55/5** (Avg delivery time: 30.3 days).
-*   **Statistical Validation:** Calculated a negative correlation coefficient of **r = -0.31**. While product quality remains the primary driver of satisfaction, this result confirms that delivery delays are a statistically significant drag on customer sentiment.
-
-![Review Score Comparison](delivery_gap_insight.png) 
-
-*Figure 2: Late deliveries correlate with a massive 1.66-star drop in satisfaction.*
-
-### 3. Monthly Revenue Trend
-The sales data displays a clear upward trend from Jan 2017 to Aug 2018, with a distinct peak in November, likely driven by Black Friday promotions. However, there is a notable seasonal pattern showing a sales decline of **almost 14% from May to June** in both 2017 and 2018, which requires further root cause analysis to mitigate future Q2 slumps.
-
-##  Recommendations
-
-1.  **Optimize "Last Mile" Logistics:** Olist should Investigate carrier performance in states with the highest "Late Delivery" rates and or develop a predictive SLA breach algorithm. Reducing late deliveries by just 50% could potentially increase the overall Average Review Score, driving higher customer trust and repeat purchases.
-
-2.  **Targeted Inventory Focus:** Prioritizing stock availability and supplier relationships specifically for **Health & Beauty**, **Watches & Gifts**, and **Bed, Bath & Table** to prevent stockouts in these critical segments.
-
-3.  **Seasonal Retention Strategy:** Launching a dedicated "Post-May" investigation task force. If no concrete result was found, counter it with mid-year promotions or loyalty incentives.
-
-## Key Insights from the Tableau Dashboard
-
-- The business generated **$16.12M GMV** across **96,128 orders** from **93,021 unique customers**, with an **AOV of $167.70**, an average review score of **4.08/5**, and a **late delivery rate of 8.1%**.  
-  **Suggested action:** Track late delivery rate as a core business KPI and monitor it by category, seller, and region.
-
-- Revenue was highly concentrated in a few categories. **Furniture & Décor, Sports & Outdoor, and Electronics & Technology** contributed about **51.4% of total GMV**, while the top 5 categories generated about **74.1%**.  
-  **Suggested action:** Protect top categories operationally while growing mid-tier categories to reduce concentration risk.
-
-- **Furniture & Décor** was the strongest Category_Group overall, ranking first in both **revenue ($3.56M)** and **orders containing Category_Group (23,129)**.  
-  **Suggested action:** Use it as a benchmark Category_Group to identify practices that can be replicated elsewhere.
-
-- Monthly GMV rose from **$138k in January 2017** to **$1.20M in November 2017**, then stayed above **$1.0M** for most of 2018, indicating a shift from rapid growth to higher-volume stability.  
-  **Suggested action:** Compare weaker months against peak months to identify the Category_Group and operational patterns behind stronger performance.
-
-- Payment behavior was heavily concentrated in **credit card** usage, with **boleto** as the second most common method.  
-  **Suggested action:** Optimize the checkout experience around dominant payment methods while improving secondary payment flows where useful.
-
-- Category comparison suggests that some groups, such as **Home & Appliances**, **Fashion & Accessories**, and **Tools & Automotive**, generated relatively stronger value per order-containing-category than lower-value groups like **Food & Drinks** and **Books & Arts**.  
-  **Suggested action:** Treat higher-value categories as premium growth opportunities and lower-value ones as basket-building support categories.
-
-## Recommended Business Actions
-1.  **Monitor delivery reliability as a core business KPI:** Track late rate by seller, Category_Group, and state to identify where customer experience is most exposed.
-2.  **Protect top revenue-driving categories:** Strengthen supplier, inventory, and fulfillment focus in the categories that now account for most GMV.
-3.  **Benchmark peak-performance months:** Use late 2017 and early 2018 as reference periods to study the conditions behind stronger commercial performance.
-4.  **Optimize around dominant payment behavior:** Improve checkout flows for the most-used payment methods while testing lower-friction alternatives for secondary methods.
-
-##  Skills Showcased
-The technical skills and concepts applied in this project include:
-*   **Data Cleaning & ETL:** Power Query (M Language), Data Type Standardization, Merging Queries.
-   *   *Note: The full M-Code logic is available in `power_query_etl.txt` for technical review.*
-*   **Data Modeling:** Relational Schemas, Measure Creation (KPIs), Calculated Columns.
-*   **Analysis:** Statistical Correlation, Trend Analysis, Pareto Principle (80/20 Rule).
-*   **Visualization:** Dashboard Design, Slicers, Geographic Maps, Conditional Formatting, Interactive UI.
-*   **Data Validation:** compared calculation logic between Power Query (M) and SQL (BigQuery) to ensure metric consistency across platforms.
-
+**Code:** [`olist_analysis_sql.sql`](olist_analysis_sql.sql) · [`power_query_etl.pq.txt`](power_query_etl.pq.txt) · [`OlistDelivery.pbip`](OlistDelivery.pbip)
 
 ---
-###  Project Files
-*   **[Download Project File (Excel)](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases/download/V1.0/Olist_Sales_Dashboard_Analysis.xlsx)**: The complete Excel model
-*   **ETL Automation:** The full Power Query M-Code logic is available in `power_query_etl.txt` for technical review.
-*   **SQL Validation Script (olist_analysis_sql.sql):** Contains the CTEs, Joins, and Logic used to stress-test the Excel data model and verify the "Logistics Gap" findings.
 
+## Summary
 
+96,127 delivered Olist orders from January 2017 to August 2018, analysed to answer one question: how much does a late delivery actually cost in customer satisfaction, and where does it happen most.
 
+Short answer. A late order averages **2.27 out of 5** against **4.29** for an on-time one, and **53.8%** of late orders get a one-star review compared with **6.6%** of on-time orders. The damage is concentrated: six of the fifteen largest states run late rates above 10%, while São Paulo, which is 37.5% of revenue, sits at 4.5%.
 
+The project started as an Excel and Power Query model with SQL validation. It now also ships a corrected star schema feeding a Tableau and a Power BI dashboard. The section on version 2 below explains what was wrong in the first pass and what it changed.
 
+---
 
+## Dashboards
 
+### Tableau
+
+[![Corrected Tableau dashboard](tableau_logistics_corrected.png)](https://public.tableau.com/app/profile/arash.hadi/viz/Olist_Logistics_Corrected/OlistLogistics-Corrected)
+
+Five KPI tiles over four views: review score by delivery band, late rate by month, the late and on-time split within each star rating, and revenue by state shaded by late rate. The image links through to the interactive version.
+
+### Power BI
+
+![Power BI — Delivery and Satisfaction](powerbi_delivery_satisfaction.png)
+
+![Power BI — Geography and Revenue](powerbi_geography_revenue.png)
+
+Built in PBIP developer mode, so the semantic model is version-controlled as TMDL text rather than a binary `.pbix`. The measures, relationships and calculated columns are readable in `OlistDelivery.SemanticModel/definition/`. The model points at local Parquet files, so it is committed here for inspection rather than for refresh.
+
+### Excel
+
+![Excel dashboard](dashboard_overview.jpg)
+
+The original interactive model: Power Query ETL, a pivot data model, slicers by state and category. Read its KPI tiles as v1: average review score shows 4.08, and Total Revenue of R$ 13.2M is product price with freight excluded, against R$ 15.35M including it. The workbook's `EDA_&_Stats` sheet carries a note setting out both differences.
+
+---
+
+## Metric definitions
+
+Every number in this README follows these rules. They matter, because two of them changed between v1 and v2.
+
+| Term | Definition |
+|---|---|
+| Order | One `order_id` with status `delivered`. Non-delivered and cancelled orders are excluded. 99,441 orders in the raw data, 96,127 after filtering. |
+| Revenue | `price + freight_value` summed across order items, in **Brazilian reais (R$)**. Not payment value, which differs because of instalments and vouchers. |
+| Late | Delivered after the promised **calendar day**: `date(delivered_customer_date) > date(estimated_delivery_date)`. A delivery that lands on the promised day but later on the clock counts as on time. |
+| Days late | Calendar days past the promise, floored at zero, averaged over late orders only. |
+| Review score | One score per order. 189 orders carried more than one review; those use the mean. |
+| Category group | The 74 raw product categories collapsed into 14 groups. Where this README says "category", it says which level it means. |
+
+---
+
+## Version 2: what changed and why
+
+The first version exported everything into one flat table at **order-item** grain. Order-level attributes such as review score and delivery dates were repeated once per line item, so every average silently weighted each order by how many items it contained. A four-item order counted four times as much as a single-item one.
+
+Rebuilding on a star schema fixed it. `Fact_Order` sits at order grain, `Fact_OrderItem` at line grain, with three conformed dimensions, joined through Tableau relationships instead of a single flat extract. Each measure now aggregates at its own grain.
+
+Separately, "late" had three competing definitions across the Excel model, the SQL script and the Tableau workbook. I reconciled them on the calendar-day rule, because that is the promise the customer actually sees.
+
+| Metric | v1 | v2 | Cause |
+|---|---|---|---|
+| Average review score | 4.08 | **4.16** | Basket-size weighting removed |
+| Late rate | 8.1% | **6.7%** | Timestamp comparison replaced by calendar day |
+| Late orders | 7,746 | **6,455** | Same |
+
+Neither correction is large in absolute terms. Both change the story you would tell a stakeholder, and the second one changes whether a supplier hits its SLA.
+
+---
+
+## Business problem and objectives
+
+Olist is a Brazilian marketplace operating over long distances and mixed carrier quality. Delivery reliability is the part of the experience the seller does not control and the customer blames them for anyway. The company needs to know how much satisfaction a delay actually costs, and which categories and regions carry the revenue that a delay puts at risk.
+
+What I set out to quantify:
+
+1. The satisfaction cost of a late delivery, measured rather than assumed.
+2. Where revenue concentrates, so inventory and carrier attention can follow it.
+3. Whether the late rate is a national problem or a regional one.
+4. What a seasonal dip in the data is worth investigating.
+
+---
+
+## About the dataset
+
+Source: the [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) on Kaggle. Real anonymised commercial data.
+
+- 9 relational tables covering orders, customers, reviews, products, sellers and geolocation
+- 99,441 orders before filtering, 96,127 delivered orders in scope
+- Timeline 2016 to 2018. 2016 is dropped because the platform was still ramping, leaving January 2017 to August 2018
+- All monetary values in Brazilian reais
+
+---
+
+## Technical approach
+
+**Cleaning (Power Query).** Merged the relational tables, standardised types, and built `Delivery_Time_Days` with `Duration.TotalDays` rather than integer rounding so partial days survive. Collapsed 74 product categories into 14 groups.
+
+**Validation (BigQuery).** The Excel logic was re-implemented in SQL and the two compared row by row. CTEs pre-filter 2016 and the delivery-time outliers to mirror the M code. `CASE` statements rebuild the delivery status flag. Window functions check that the category ranking survives the multi-table joins without dropping revenue. Full script in `olist_analysis_sql.sql`.
+
+**Modelling (star schema).** Two fact tables and three dimensions, exported to Parquet for Power BI and to CSV for Tableau Public, which has no Parquet connector. Tableau relationships rather than joins, so each table aggregates at its own grain.
+
+**Presentation.** Power BI in PBIP developer mode with the model authored as TMDL. Tableau Public for the shareable version. Both dashboards produce identical figures, which is the point of building the second one.
+
+---
+
+## Exploratory analysis
+
+Three checks before building anything: how delivery time is distributed, how review scores are distributed, and whether the two move together.
+
+![Exploratory analysis and validation](eda_validation.png)
+
+Delivery time has a long right tail, which is why the median of 10.2 days sits well below the mean of 12.4. Review scores are polarised rather than normal, so an average on its own hides the shape of the data. Splitting that distribution by delivery outcome is what makes the correlation actionable: on-time and late orders differ in shape, not only in mean.
+
+The same three checks in the v1 Excel model ran against a flat order-item table with a timestamp-based late flag. That is why its figures (r = −0.32, and 46.3% of late orders at one star) differ from the ones above.
+
+---
+
+## Key findings
+
+### 1. Delivery time and review score break at two weeks
+
+Average review score by delivery band:
+
+| Delivery time | Avg review score |
+|---|---|
+| 0–3 days | 4.48 |
+| 4–7 days | 4.40 |
+| 8–14 days | 4.31 |
+| 15–30 days | 3.98 |
+| 30+ days | **2.23** |
+
+The curve is flat to about two weeks and then falls off a cliff. Shaving a day off a four-day delivery buys almost nothing. Pulling a 30-day delivery under 15 days is worth roughly 1.75 stars.
+
+### 2. Late orders get punished with the lowest score available
+
+![On time versus late](delivery_gap.png)
+
+- On time: **4.29** average review, 11.0 days average delivery, 6.6% one-star
+- Late: **2.27** average review, 32.7 days average delivery, **53.8% one-star**
+
+Customers do not scale their anger. More than half of all late orders go straight to one star. Read the other way, the share of orders that were late within each rating runs 36.7% of one-star orders, 18.8% of two-star, 8.7% of three-star, 3.4% of four-star and 1.8% of five-star.
+
+Pearson correlation between delivery days and review score is **r = −0.35** (n = 95,488). Product quality still dominates satisfaction, and delivery is a measurable drag on it.
+
+### 3. Revenue is concentrated, and so is the risk
+
+Of the 14 category groups, the top three take **51.3%** of revenue and the top five take **74.1%**.
+
+| Category group | Revenue (R$) | Share | Orders |
+|---|---|---|---|
+| Furniture & Décor | 3,355,869 | 21.9% | 23,129 |
+| Sports & Outdoor | 2,367,547 | 15.4% | 14,490 |
+| Electronics & Technology | 2,146,418 | 14.0% | 15,083 |
+| Beauty & Personal Care | 1,846,799 | 12.0% | 11,678 |
+| Fashion & Accessories | 1,666,358 | 10.9% | 8,836 |
+
+At the raw 74-category level the picture is much flatter: the top three there (`health_beauty`, `watches_gifts`, `bed_bath_table`) come to only **25.4%**. Concentration is partly a property of the grouping, so both numbers are worth quoting together.
+
+![Category revenue](category_insight.JPG)
+
+### 4. Late delivery is a regional problem, not a national one
+
+The top 15 states carry 94.6% of revenue. Their late rates run from 4.0% to 17.3%.
+
+| State | Revenue (R$) | Late rate | Avg review |
+|---|---|---|---|
+| São Paulo | 5,752,539 | 4.5% | 4.25 |
+| Rio de Janeiro | 2,042,844 | 12.1% | 3.97 |
+| Minas Gerais | 1,812,375 | 4.6% | 4.19 |
+| Rio Grande do Sul | 857,943 | 6.1% | 4.19 |
+| Paraná | 777,997 | 4.0% | 4.24 |
+| Ceará | 264,221 | 13.5% | 3.95 |
+| Maranhão | 146,959 | **17.3%** | 3.83 |
+
+Rio de Janeiro is the one that matters commercially. It is the second-largest market at 13.3% of revenue, it runs nearly three times São Paulo's late rate, and its average review is the lowest of the three big states.
+
+### 5. Growth flattened, and May to June dips twice
+
+Monthly revenue climbed from R$ 127k in January 2017 to a peak of R$ 1.15M in November 2017, then held above R$ 1.0M in six of the eight months of 2018. That is a shift from growth to volume stability, not a decline.
+
+One repeating pattern: revenue fell 13.5% from May to June in 2017 and 10.4% over the same months in 2018. Two years is not a seasonal trend, but it is enough to justify looking at May promotional activity before assuming June is the problem.
+
+---
+
+## Recommendations
+
+1. **Track late rate by state, not nationally.** The 6.7% headline hides Maranhão at 17.3% and Ceará at 13.5%. A national target lets the worst regions hide behind São Paulo's volume.
+2. **Prioritise Rio de Janeiro.** It is the largest market where reliability is genuinely poor. Closing its 12.1% late rate toward the national average addresses more revenue than fixing every state below the top five combined.
+3. **Set the SLA target at 14 days rather than at "faster".** Review score is flat below two weeks, so speed investment under that threshold does not buy satisfaction. The return is in eliminating the long tail.
+4. **Protect the top five category groups operationally.** They carry 74.1% of revenue, so a stockout or a carrier failure there costs more than anywhere else.
+
+---
+
+## Limitations
+
+- Delivered orders only. Cancelled and undelivered orders are excluded, so this measures satisfaction among customers who did receive something.
+- Delivery time was capped at 90 days in the Power Query stage and the star schema inherits that cap, so the longest delivery in scope is 91 days. The 30+ day band is a bounded tail, not an open-ended one.
+- 639 delivered orders have no review. They appear as a "Null" column in the review split chart rather than being dropped, because they are 23.3% late and dropping them would flatter the numbers.
+- The star schema has no payments table, so payment-method analysis exists only in the v1 Excel model and is not carried forward.
+- Correlation is not causation. A slow delivery and a bad review may share a cause, such as a seller who is poor at both.
+
+---
+
+## Repository structure
+
+```
+README.md
+olist_analysis_sql.sql            BigQuery validation script
+power_query_etl.pq.txt            Power Query M code
+OlistDelivery.pbip                Power BI project (PBIP)
+OlistDelivery.SemanticModel/      TMDL model: tables, measures, relationships
+OlistDelivery.Report/             PBIR report definition
+tableau_logistics_corrected.png   Tableau dashboard, v2
+powerbi_delivery_satisfaction.png Power BI page 1
+powerbi_geography_revenue.png     Power BI page 2
+dashboard_overview.jpg            Excel dashboard
+category_insight.JPG              Category revenue, Excel
+delivery_gap.png                  On time vs late, three measures
+eda_validation.png                Distributions and correlation check
+```
+
+Large binaries (`.twbx`, `.xlsx`) are attached to [releases](https://github.com/Arash-hadi-D/Olist-Ecommerce-Sales-Analysis/releases) rather than committed.
+
+---
+
+## Skills demonstrated
+
+Power Query (M) for ETL and type standardisation. SQL in BigQuery for cross-platform validation with CTEs, window functions and multi-table joins. Dimensional modelling: star schema design, grain selection, conformed dimensions. DAX and TMDL in Power BI developer mode. Tableau relationships and table calculations, including a percent-of-total scoped with Compute Using to split each rating by delivery outcome. Dashboard design against a fixed palette, checked for colourblind safety.
+
+The part worth asking me about in an interview is the grain bug. Finding it in my own published work, quantifying the error and rebuilding the model taught me more than any of the charts did.
