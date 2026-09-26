@@ -54,8 +54,9 @@ Every number in this README follows these rules. They matter, because two of the
 | Revenue | `price + freight_value` summed across order items, in **Brazilian reais (R$)**. Not payment value, which differs because of instalments and vouchers. |
 | Late | Delivered after the promised **calendar day**: `date(delivered_customer_date) > date(estimated_delivery_date)`. A delivery that lands on the promised day but later on the clock counts as on time. |
 | Days late | Calendar days past the promise, floored at zero, averaged over late orders only. |
-| Review score | One score per order. 189 orders carried more than one review; those use the mean. |
+| Review score | One score per order. 523 orders carried more than one review, 189 of them with different scores; each order uses the mean. |
 | Category group | The 74 raw product categories collapsed into 14 groups. Where this README says "category", it says which level it means. |
+| State | The customer's state on their most recent order. 36 customers ordered to more than one state; all 76 of their orders count under the latest one. |
 
 ---
 
@@ -63,7 +64,7 @@ Every number in this README follows these rules. They matter, because two of the
 
 The first version exported everything into one flat table at **order-item** grain. Order-level attributes such as review score and delivery dates were repeated once per line item, so every average silently weighted each order by how many items it contained. A four-item order counted four times as much as a single-item one.
 
-Rebuilding on a star schema fixed it. `Fact_Order` sits at order grain, `Fact_OrderItem` at line grain, with three conformed dimensions, joined through Tableau relationships instead of a single flat extract. Each measure now aggregates at its own grain.
+Rebuilding on a star schema fixed it. `Fact_Order` sits at order grain, `Fact_OrderItem` at line grain, with three dimensions (date, customer, product), joined through Tableau relationships instead of a single flat extract. Each measure now aggregates at its own grain.
 
 Separately, "late" had three competing definitions across the Excel model, the SQL script and the Tableau workbook. I reconciled them on the calendar-day rule, because that is the promise the customer actually sees.
 
@@ -105,7 +106,7 @@ Source: the [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.co
 
 **Cleaning (Power Query).** Merged the relational tables, standardised types, and built `Delivery_Time_Days` with `Duration.TotalDays` rather than integer rounding so partial days survive. Collapsed 74 product categories into 14 groups.
 
-**Validation (BigQuery).** The Excel logic was re-implemented in SQL and the two compared row by row. CTEs pre-filter 2016 and the delivery-time outliers to mirror the M code. `CASE` statements rebuild the delivery status flag. Window functions check that the category ranking survives the multi-table joins without dropping revenue. Full script in `olist_analysis_sql.sql`.
+**Validation (BigQuery).** The SQL script rebuilds the v2 figures from the raw tables, independently of the star schema. It collapses reviews and revenue to one row per order before any join, so no order counts more than once, and flags late orders with the calendar-day rule. Window functions rank states and categories by revenue. Each query states the result it should return, and each one matches the dashboards, down to the 4.16 average review and the 6.7% late rate. An earlier version of this script checked the v1 Excel model, grain bug and timestamp rule included. Full script in `olist_analysis_sql.sql`.
 
 **Modelling (star schema).** Two fact tables and three dimensions, exported to Parquet for Power BI and to CSV for Tableau Public, which has no Parquet connector. Tableau relationships rather than joins, so each table aggregates at its own grain.
 
@@ -235,6 +236,6 @@ Large binaries (`.twbx`, `.xlsx`) are attached to [releases](https://github.com/
 
 ## Skills demonstrated
 
-Power Query (M) for ETL and type standardisation. SQL in BigQuery for cross-platform validation with CTEs, window functions and multi-table joins. Dimensional modelling: star schema design, grain selection, conformed dimensions. DAX and TMDL in Power BI developer mode. Tableau relationships and table calculations, including a percent-of-total scoped with Compute Using to split each rating by delivery outcome. Dashboard design against a fixed palette, checked for colourblind safety.
+Power Query (M) for ETL and type standardisation. SQL in BigQuery for cross-platform validation with CTEs, window functions and multi-table joins. Dimensional modelling: star schema design and grain selection. DAX and TMDL in Power BI developer mode. Tableau relationships and table calculations, including a percent-of-total scoped with Compute Using to split each rating by delivery outcome. Dashboard design against a fixed palette, checked for colourblind safety.
 
 The part worth asking me about in an interview is the grain bug. Finding it in my own published work, quantifying the error and rebuilding the model taught me more than any of the charts did.
